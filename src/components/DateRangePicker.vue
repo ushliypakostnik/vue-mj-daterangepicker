@@ -231,15 +231,15 @@
       type: Object,
       default: () => {
         return {
-          primary: '#ff0000',
-          secondary: '#2D3E50',
-          ternary: '#93A0BD',
-          border: '#e6e6e6',
+          primary: '#ebf5fe',
+          secondary: '#b1b1b1',
+          ternary: '#b1b1b1',
+          border: '#dddddd',
           light: '#ffffff',
-          dark: '#000000',
+          dark: '#373a3c',
           hovers: {
-            day: '#e6e6e6',
-            range: '#e6e6e6'
+            day: '#def0d7',
+            range: '#def0d7'
           }
         }
       }
@@ -984,7 +984,6 @@
 
       }
     }
-
 
     * {
       cursor: pointer;

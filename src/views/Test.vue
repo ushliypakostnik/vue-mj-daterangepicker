@@ -1,10 +1,10 @@
 <template lang="pug">
   div
     div(style="margin: 20px 0;")
-      date-range-picker(:yearsCount="3" locale="ru" @select="checkUpdate" :show-controls="false" :theme="theme" :presets="[]" :range="true")
+      date-range-picker(:yearsCount="3" locale="ru" @select="checkUpdate" :show-controls="false" :presets="[]" :range="true")
 
     div(style="margin: 20px 0;")
-      date-range-picker(:yearsCount="3" locale="ru" @select="checkUpdate" :show-controls="false" :theme="theme" :range="false")
+      date-range-picker(:yearsCount="3" locale="ru" @select="checkUpdate" :show-controls="false" :range="false")
 </template>
 
 <script lang="ts">
@@ -18,23 +18,6 @@
   })
 
   export default class Home extends Vue {
-    theme = {
-      primary: '#46C3A3',
-      secondary: '#2D3E50',
-      ternary: '#93A0BD',
-      light: '#ffffff',
-      border: '#e6e6e6',
-      dark: '#000000',
-      hovers: {
-        day: '#e6e6e6',
-        range: '#e6e6e6'
-      }
-    }
-
-    get now() {
-      return new Date().toISOString()
-    }
-
     checkUpdate(values) {
       // console.log(values);
     }
