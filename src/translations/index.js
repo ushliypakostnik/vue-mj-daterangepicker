@@ -138,6 +138,7 @@ const dictonnaries = {
     "panels": {
       "days": "Дни",
       "weeks": "Недели",
+      "months": "Месяцы",
       "day": "День",
       "week": "Неделя",
       "month": "Месяц",

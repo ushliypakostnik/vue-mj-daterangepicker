@@ -57,8 +57,10 @@
         .month(
           v-for="month in yearMonths"
           :key="month.date | date('DDMMYYYY')"
-          @click="selectMonth(month)"
           :class="monthClasses(month)"
+          @click="selectMonth(month)"
+          @mouseover="hoverizeMonth(month.date)"
+          @mouseleave="hoverRange = []"
         )
           span {{ month.displayDate }}
 
@@ -112,7 +114,6 @@
     isAfter,
     isBefore,
     isSameDay,
-    isSameWeek,
     isSameMonth,
     isValid,
     isWithinRange,
@@ -139,7 +140,7 @@
     ru: require('date-fns/locale/ru'),
   }
 
-  const RANGE_PANELS = [ 'days', 'weeks', 'month', 'quarter', 'year']
+  const RANGE_PANELS = [ 'days', 'weeks', 'months', 'quarter', 'year']
   const SINGLE_PANELS = [ 'day', 'week', 'month', 'quarter', 'year']
 
   Vue.use(SvgIcon, {
@@ -157,7 +158,8 @@
 
     current = null
     weekSelector = false
-    isWeekRangeOpen = false
+    isWeeksRangeOpen = false
+    isMonthsRangeOpen = false
     monthDays = []
     now = new Date().toISOString()
     values = {
@@ -429,7 +431,7 @@
     }
 
     get isMonthsPicker(): boolean {
-      return this.currentPanel === 'month' || this.currentPanel === 'quarter'
+      return this.currentPanel === 'months' || this.currentPanel === 'month' || this.currentPanel === 'quarter'
     }
 
     get isYearPicker(): boolean {
@@ -437,7 +439,7 @@
     }
 
     get isMonthsPanel(): boolean {
-      return this.currentPanel === 'month'
+      return this.currentPanel === 'months' || this.currentPanel === 'month'
     }
 
     get isQuartersPanel(): boolean {
@@ -502,32 +504,31 @@
           return
         } else {
           // Select weeks range
+          this.isMonthsRangeOpen = false
           if (!this.values.from && !this.values.to) {
             this.values.from = startOfWeek(date, { weekStartsOn: 1 })
             this.values.to = endOfWeek(date, { weekStartsOn: 1 })
-            this.isWeekRangeOpen = true
+            this.isWeeksRangeOpen = true
           } else {
             if (isWithinRange(date, this.values.from, this.values.from)) {
-              // On selected week
+              // On selected weeks
               this.values.from = startOfWeek(date, { weekStartsOn: 1 })
               this.values.to = endOfWeek(date, { weekStartsOn: 1 })
             } else if (isBefore(date, this.values.from)) {
-              // Before selected week
+              // Before selected weeks
               this.values.from = startOfWeek(date, { weekStartsOn: 1 })
               this.values.to = endOfWeek(date, { weekStartsOn: 1 })
-              if (!this.isWeekRangeOpen) {
-                this.isWeekRangeOpen = true
-              }
+              this.isWeeksRangeOpen = true
             } else {
-              // After selected week
-              if (this.isWeekRangeOpen) {
+              // After selected weeks
+              if (this.isWeeksRangeOpen) {
                 this.values.from = startOfWeek(this.values.from, { weekStartsOn: 1 })
                 this.values.to = endOfWeek(date, { weekStartsOn: 1 })
               } else {
                 this.values.from = startOfWeek(date, { weekStartsOn: 1 })
                 this.values.to = endOfWeek(date, { weekStartsOn: 1 })
               }
-              this.isWeekRangeOpen = !this.isWeekRangeOpen
+              this.isWeeksRangeOpen = !this.isWeeksRangeOpen
             }
           }
           this.preset = 'custom'
@@ -543,7 +544,8 @@
         return
       } else {
         // Select days range
-        this.isWeekRangeOpen = false
+        this.isWeeksRangeOpen = false
+        this.isMonthsRangeOpen = false
         if ((this.values.from && this.values.to) || (!this.values.from && !this.values.to)) {
           this.values.from = date
           this.values.to = null
@@ -559,15 +561,59 @@
       }
     }
 
+    selectMonth(month) {
+      if (!this.range) {
+        // Select month single
+        this.values.from = startOfMonth(month.date)
+        this.values.to = endOfMonth(month.date)
+        this.current = this.values.to
+        return
+      } else {
+        // Select months range
+        this.isWeeksRangeOpen = false
+        if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
+          this.values.from = startOfMonth(month.date)
+          this.values.to = endOfMonth(month.date)
+          this.current = this.values.to
+          this.isMonthsRangeOpen = true
+        } else {
+          if (isWithinRange(month.date, this.values.from, this.values.to)) {
+            // On selected months
+            if (!this.isMonthsRangeOpen) {
+              this.values.from = startOfMonth(month.date)
+              this.values.to = endOfMonth(month.date)
+              this.current = this.values.to
+            } else {
+              this.values.to = endOfMonth(month.date)
+              this.current = this.values.to
+            }
+            this.isMonthsRangeOpen = !this.isMonthsRangeOpen
+          } else if (isBefore(month.date, this.values.from)) {
+            // Before selected months
+            this.values.from = startOfMonth(month.date)
+            this.values.to = endOfMonth(month.date)
+            this.current = this.values.to
+            this.isMonthsRangeOpen = true
+          } else {
+            // After selected months
+            if (this.isMonthsRangeOpen) {
+              this.values.to = endOfMonth(month.date)
+              this.current = this.values.to
+            } else {
+              this.values.from = startOfMonth(month.date)
+              this.values.to = endOfMonth(month.date)
+              this.current = this.values.to
+            }
+            this.isMonthsRangeOpen = !this.isMonthsRangeOpen
+          }
+        }
+        this.preset = 'custom'
+      }
+    }
+
     selectQuarter(quarter) {
       this.values.from = startOfDay(startOfMonth(quarter.range.start))
       this.values.to = endOfMonth(quarter.range.end)
-      this.current = this.values.to
-    }
-
-    selectMonth(month) {
-      this.values.from = startOfMonth(month.date)
-      this.values.to = endOfMonth(month.date)
       this.current = this.values.to
     }
 
@@ -583,24 +629,37 @@
         return
       }
       if (this.weekSelector) {
-        if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
-          this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
-          return
-        } else {
-          if (isBefore(date, this.values.from)) {
+        if (this.range) {
+          if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
             this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
             return
           } else {
-            if (this.isWeekRangeOpen) {
-              this.hoverRange = [startOfWeek(this.values.from, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
-            } else {
+            if (isBefore(date, this.values.from)) {
               this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+              return
+            } else {
+              if (this.isWeeksRangeOpen) {
+                this.hoverRange = [startOfWeek(this.values.from, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+              } else {
+                this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+              }
+              return
             }
-            return
           }
+        } else {
+          this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
         }
       } else {
         this.hoverRange = [this.values.from, date]
+      }
+    }
+
+    hoverizeMonth(date) {
+      if (this.range && !isBefore(date, this.values.from) && this.isMonthsRangeOpen) {
+        this.hoverRange = [startOfMonth(this.values.from), endOfMonth(date)]
+        return
+      } else {
+        this.hoverRange = []
       }
     }
 
@@ -654,7 +713,6 @@
         classes.push('is-last-range')
         classes.push('is-edge-range')
       }
-
       if (this.hoverRange.length === 2 && isWithinRange(day.date, this.hoverRange[0], this.hoverRange[1])) {
         classes.push('is-in-range')
       }
@@ -663,8 +721,12 @@
 
     monthClasses(month) {
       const classes = []
+
       if (this.values.to && this.values.from && isWithinRange(month.date, this.values.from, this.values.to)) {
         classes.push('is-selected')
+      }
+      if (this.hoverRange.length === 2 && isWithinRange(month.date, this.hoverRange[0], this.hoverRange[1])) {
+        classes.push('is-in-range')
       }
       return classes
     }
@@ -841,6 +903,10 @@
       font-size: 13px;
 
       &:hover {
+        background-color: var(--hover-range-color);
+      }
+
+      &.is-in-range {
         background-color: var(--hover-range-color);
       }
 
