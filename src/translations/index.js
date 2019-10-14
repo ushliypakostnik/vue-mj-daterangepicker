@@ -8,7 +8,7 @@ const dictonnaries = {
     "nextYear": "Année suivante",
     "quarter": "Trimestre",
     "panels": {
-      "range": "Plage",
+      "days": "Plage",
       "week": "Semaine",
       "month": "Mois",
       "quarter": "Trimestre",
@@ -40,7 +40,7 @@ const dictonnaries = {
     "nextYear": "Next year",
     "quarter": "Quarter",
     "panels": {
-      "range": "Range",
+      "days": "Range",
       "week": "Week",
       "month": "Month",
       "quarter": "Quarter",
@@ -72,7 +72,7 @@ const dictonnaries = {
     "nextYear": "Nächstes Jahr",
     "quarter": "Quartal",
     "panels": {
-      "range": "Zeitraum",
+      "days": "Zeitraum",
       "week": "Woche",
       "month": "Monat",
       "quarter": "Quartal",
@@ -104,7 +104,7 @@ const dictonnaries = {
     "nextYear": "año siguiente",
     "quarter": "Trimestre",
     "panels": {
-      "range": "Rango",
+      "days": "Rango",
       "week": "Semanal",
       "month": "Mensual",
       "quarter": "Trimestral",
@@ -136,12 +136,13 @@ const dictonnaries = {
     "nextYear": "Следующий год",
     "quarter": "Квартал",
     "panels": {
-      "range": "Период",
+      "days": "Дни",
+      "weeks": "Недели",
+      "day": "День",
       "week": "Неделя",
       "month": "Месяц",
       "quarter": "Квартал",
-      "year": "Год",
-      "day": "День"
+      "year": "Год"
     },
     "presets": {
       "custom": "Пользовательский диапазон",

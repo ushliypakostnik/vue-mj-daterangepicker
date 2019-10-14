@@ -40,32 +40,6 @@
         )
           span {{ day.date | date('D') }}
 
-    .mj-calendar(:class="weekSelector ? 'mj-calendar-week' : 'mj-calendar-days'" v-if="isDayPicker")
-      .calendar-header
-        .calendar-previous-month.calendar-arrow.calendar-arrow-previous(
-          :aria-label="$legends[locale].previousMonth"
-          @click="changeMonth(1)"
-        )
-          svgicon(icon="arrow-left" width="7.4" height="12")
-        .calendar-month-name {{ currentMonthName }}
-        .calendar-previous-month.calendar-arrow.calendar-arrow-next(
-          :aria-label="$legends[locale].nextMonth"
-          @click="changeMonth(-1)")
-          svgicon(icon="arrow-right" width="7.4" height="12")
-      .calendar-days-name
-        .day(v-for="day in firstWeek")
-          span {{ day.name }}
-      .calendar-days
-        .day(
-          v-for="day in monthDays"
-          :key="day.date | date('DDMMYYYY')"
-          :class="dayClasses(day)"
-          @click="selectDay(day.date)"
-          @mouseover="hoverizeDay(day.date)"
-          @mouseleave="hoverRange = []"
-        )
-          span {{ day.date | date('D') }}
-
     .mj-calendar(v-if="isMonthsPicker")
       .calendar-header
         .calendar-previous-month.calendar-arrow.calendar-arrow-previous(
@@ -138,6 +112,7 @@
     isAfter,
     isBefore,
     isSameDay,
+    isSameWeek,
     isSameMonth,
     isValid,
     isWithinRange,
@@ -164,6 +139,9 @@
     ru: require('date-fns/locale/ru'),
   }
 
+  const RANGE_PANELS = [ 'days', 'weeks', 'month', 'quarter', 'year']
+  const SINGLE_PANELS = [ 'day', 'week', 'month', 'quarter', 'year']
+
   Vue.use(SvgIcon, {
     tagName: 'svgicon'
   })
@@ -179,7 +157,7 @@
 
     current = null
     weekSelector = false
-    daySelector = false
+    isWeekRangeOpen = false
     monthDays = []
     now = new Date().toISOString()
     values = {
@@ -188,6 +166,11 @@
     }
     hoverRange = []
     preset = 'custom'
+
+    @Prop({
+      type: Boolean,
+      default: true
+    }) range
 
     @Prop({
       type: String,
@@ -235,22 +218,17 @@
     }) yearsCount
 
     @Prop({
-      type: Array,
-      default: () => [ 'range', 'week', 'month', 'quarter', 'year']
-    }) panels
-
-    @Prop({
       type: Object,
       default: () => {
         return {
-          primary: '#3297DB',
+          primary: '#ff0000',
           secondary: '#2D3E50',
           ternary: '#93A0BD',
           border: '#e6e6e6',
           light: '#ffffff',
           dark: '#000000',
           hovers: {
-            day: '#CCC',
+            day: '#e6e6e6',
             range: '#e6e6e6'
           }
         }
@@ -279,8 +257,7 @@
 
     @Watch('currentPanel', { immediate: true })
     switchMode(panel) {
-      this.weekSelector = panel === 'week' ? true : false
-      this.daySelector = panel === 'day' ? true : false
+      this.weekSelector = panel === 'week' || panel === 'weeks' ? true : false
       this.updateCalendar()
     }
 
@@ -344,7 +321,10 @@
     }
 
     get availablePanels() {
-      return this.panels
+      if (this.range) {
+        return RANGE_PANELS
+      }
+      return SINGLE_PANELS
     }
 
     get availablePresets() {
@@ -392,7 +372,9 @@
       const months = []
       let month = startOfYear(this.current)
       while (months.length !== 12) {
-        months.push({ date: month, displayDate: format(month, 'MMMM', { locale: locales[this.locale] }) })
+        const str1 = format(month, 'MMMM', { locale: locales[this.locale] })
+        const str2 = str1[0].toUpperCase() + str1.slice(1)
+        months.push({ date: month, displayDate: str2 })
         month = addMonths(month, 1)
       }
       return months
@@ -439,11 +421,11 @@
     }
 
     get isPresetPicker(): boolean {
-      return this.currentPanel === 'range'
+      return this.currentPanel === 'days'
     }
 
     get isDaysPicker(): boolean {
-      return this.currentPanel === 'range' || this.currentPanel === 'week' || this.currentPanel === 'day'
+      return this.currentPanel === 'days' || this.currentPanel === 'weeks' || this.currentPanel === 'week' || this.currentPanel === 'day'
     }
 
     get isMonthsPicker(): boolean {
@@ -511,30 +493,70 @@
     }
 
     selectDay(date) {
+      // Select weeks
       if (this.weekSelector) {
-        this.values.from = startOfWeek(date, { weekStartsOn: 1 })
-        this.values.to = endOfWeek(date, { weekStartsOn: 1 })
-        return
-      }
-
-      if (this.daySelector) {
-        this.values.from = startOfDay(date);
-        this.values.to = startOfDay(date);
-        return
-      }
-
-      if ((this.values.from && this.values.to) || (!this.values.from && !this.values.to)) {
-        this.values.from = date
-        this.values.to = null
-      } else if (this.values.from && !this.values.to) {
-        if (isBefore(date, this.values.from)) {
-          this.values.from = date
+        if (!this.range) {
+          // Select week single
+          this.values.from = startOfWeek(date, { weekStartsOn: 1 })
+          this.values.to = endOfWeek(date, { weekStartsOn: 1 })
+          return
         } else {
-          this.values.to = date
-          this.hoverRange = []
+          // Select weeks range
+          if (!this.values.from && !this.values.to) {
+            this.values.from = startOfWeek(date, { weekStartsOn: 1 })
+            this.values.to = endOfWeek(date, { weekStartsOn: 1 })
+            this.isWeekRangeOpen = true
+          } else {
+            if (isWithinRange(date, this.values.from, this.values.from)) {
+              // On selected week
+              this.values.from = startOfWeek(date, { weekStartsOn: 1 })
+              this.values.to = endOfWeek(date, { weekStartsOn: 1 })
+            } else if (isBefore(date, this.values.from)) {
+              // Before selected week
+              this.values.from = startOfWeek(date, { weekStartsOn: 1 })
+              this.values.to = endOfWeek(date, { weekStartsOn: 1 })
+              if (!this.isWeekRangeOpen) {
+                this.isWeekRangeOpen = true
+              }
+            } else {
+              // After selected week
+              if (this.isWeekRangeOpen) {
+                this.values.from = startOfWeek(this.values.from, { weekStartsOn: 1 })
+                this.values.to = endOfWeek(date, { weekStartsOn: 1 })
+              } else {
+                this.values.from = startOfWeek(date, { weekStartsOn: 1 })
+                this.values.to = endOfWeek(date, { weekStartsOn: 1 })
+              }
+              this.isWeekRangeOpen = !this.isWeekRangeOpen
+            }
+          }
+          this.preset = 'custom'
+          return
         }
       }
-      this.preset = 'custom'
+
+      // Select days
+      if (!this.range) {
+        // Select day single
+        this.values.from = startOfDay(date)
+        this.values.to = startOfDay(date)
+        return
+      } else {
+        // Select days range
+        this.isWeekRangeOpen = false
+        if ((this.values.from && this.values.to) || (!this.values.from && !this.values.to)) {
+          this.values.from = date
+          this.values.to = null
+        } else if (this.values.from && !this.values.to) {
+          if (isBefore(date, this.values.from)) {
+            this.values.from = date
+          } else {
+            this.values.to = date
+            this.hoverRange = []
+          }
+        }
+        this.preset = 'custom'
+      }
     }
 
     selectQuarter(quarter) {
@@ -561,7 +583,22 @@
         return
       }
       if (this.weekSelector) {
-        this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+        if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
+          this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+          return
+        } else {
+          if (isBefore(date, this.values.from)) {
+            this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+            return
+          } else {
+            if (this.isWeekRangeOpen) {
+              this.hoverRange = [startOfWeek(this.values.from, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+            } else {
+              this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+            }
+            return
+          }
+        }
       } else {
         this.hoverRange = [this.values.from, date]
       }
