@@ -12117,12 +12117,12 @@ if (typeof window !== 'undefined') {
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a92dc5e2-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/pug-plain-loader!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DateRangePicker.vue?vue&type=template&id=94512378&lang=pug&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"mj-daterange-picker",style:(_vm.cssProps)},[(_vm.availablePanels.length > 1)?_c('div',{staticClass:"panels-choices"},_vm._l((_vm.availablePanels),function(panel){return _c('div',{staticClass:"panel-button",class:{'is-current': panel === _vm.currentPanel},on:{"click":function($event){_vm.currentPanel = panel}}},[_vm._v(_vm._s(_vm.$legends[_vm.locale].panels[panel]))])}),0):_vm._e(),(_vm.isPresetPicker && _vm.presets.length > 1)?_c('div',{staticClass:"preset-ranges"},_vm._l((_vm.availablePresets),function(entry){return _c('div',{staticClass:"preset"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.preset),expression:"preset"}],attrs:{"type":"radio","id":entry},domProps:{"value":entry,"checked":_vm._q(_vm.preset,entry)},on:{"change":function($event){_vm.preset=entry}}}),_c('label',{attrs:{"for":entry}},[_c('span',{staticClass:"check"}),_c('span',[_vm._v(_vm._s(_vm.$legends[_vm.locale].presets[entry]))])])])}),0):_vm._e(),(_vm.isDaysPicker)?_c('div',{staticClass:"mj-calendar",class:_vm.weekSelector ? 'mj-calendar-week' : 'mj-calendar-days'},[_c('div',{staticClass:"calendar-header"},[_c('div',{staticClass:"calendar-previous-month calendar-arrow calendar-arrow-previous",attrs:{"aria-label":_vm.$legends[_vm.locale].previousMonth},on:{"click":function($event){return _vm.changeMonth(1)}}},[_c('svgicon',{attrs:{"icon":"arrow-left","width":"7.4","height":"12"}})],1),_c('div',{staticClass:"calendar-month-name"},[_vm._v(_vm._s(_vm.currentMonthName))]),_c('div',{staticClass:"calendar-previous-month calendar-arrow calendar-arrow-next",attrs:{"aria-label":_vm.$legends[_vm.locale].nextMonth},on:{"click":function($event){return _vm.changeMonth(-1)}}},[_c('svgicon',{attrs:{"icon":"arrow-right","width":"7.4","height":"12"}})],1)]),_c('div',{staticClass:"calendar-days-name"},_vm._l((_vm.firstWeek),function(day){return _c('div',{staticClass:"day"},[_c('span',[_vm._v(_vm._s(day.name))])])}),0),_c('div',{staticClass:"calendar-days"},_vm._l((_vm.monthDays),function(day){return _c('div',{key:_vm._f("date")(day.date,'DDMMYYYY'),staticClass:"day",class:_vm.dayClasses(day),on:{"click":function($event){return _vm.selectDay(day.date)},"mouseover":function($event){return _vm.hoverizeDay(day.date)},"mouseleave":function($event){_vm.hoverRange = []}}},[_c('span',[_vm._v(_vm._s(_vm._f("date")(day.date,'D')))])])}),0)]):_vm._e(),(_vm.isDayPicker)?_c('div',{staticClass:"mj-calendar",class:_vm.weekSelector ? 'mj-calendar-week' : 'mj-calendar-days'},[_c('div',{staticClass:"calendar-header"},[_c('div',{staticClass:"calendar-previous-month calendar-arrow calendar-arrow-previous",attrs:{"aria-label":_vm.$legends[_vm.locale].previousMonth},on:{"click":function($event){return _vm.changeMonth(1)}}},[_c('svgicon',{attrs:{"icon":"arrow-left","width":"7.4","height":"12"}})],1),_c('div',{staticClass:"calendar-month-name"},[_vm._v(_vm._s(_vm.currentMonthName))]),_c('div',{staticClass:"calendar-previous-month calendar-arrow calendar-arrow-next",attrs:{"aria-label":_vm.$legends[_vm.locale].nextMonth},on:{"click":function($event){return _vm.changeMonth(-1)}}},[_c('svgicon',{attrs:{"icon":"arrow-right","width":"7.4","height":"12"}})],1)]),_c('div',{staticClass:"calendar-days-name"},_vm._l((_vm.firstWeek),function(day){return _c('div',{staticClass:"day"},[_c('span',[_vm._v(_vm._s(day.name))])])}),0),_c('div',{staticClass:"calendar-days"},_vm._l((_vm.monthDays),function(day){return _c('div',{key:_vm._f("date")(day.date,'DDMMYYYY'),staticClass:"day",class:_vm.dayClasses(day),on:{"click":function($event){return _vm.selectDay(day.date)},"mouseover":function($event){return _vm.hoverizeDay(day.date)},"mouseleave":function($event){_vm.hoverRange = []}}},[_c('span',[_vm._v(_vm._s(_vm._f("date")(day.date,'D')))])])}),0)]):_vm._e(),(_vm.isMonthsPicker)?_c('div',{staticClass:"mj-calendar"},[_c('div',{staticClass:"calendar-header"},[_c('div',{staticClass:"calendar-previous-month calendar-arrow calendar-arrow-previous",attrs:{"aria-label":_vm.$legends[_vm.locale].previousYear},on:{"click":function($event){return _vm.changeYear(1)}}},[_c('svgicon',{attrs:{"icon":"arrow-left","width":"7.4","height":"12"}})],1),_c('div',{staticClass:"calendar-month-name"},[_vm._v(_vm._s(_vm.currentYearName))]),_c('div',{staticClass:"calendar-previous-month calendar-arrow calendar-arrow-next",attrs:{"aria-label":_vm.$legends[_vm.locale].nextYear},on:{"click":function($event){return _vm.changeYear(-1)}}},[_c('svgicon',{attrs:{"icon":"arrow-right","width":"7.4","height":"12"}})],1)]),(_vm.isMonthsPanel)?_c('div',{staticClass:"calendar-months"},_vm._l((_vm.yearMonths),function(month){return _c('div',{key:_vm._f("date")(month.date,'DDMMYYYY'),staticClass:"month",class:_vm.monthClasses(month),on:{"click":function($event){return _vm.selectMonth(month)}}},[_c('span',[_vm._v(_vm._s(month.displayDate))])])}),0):_vm._e(),(_vm.isQuartersPanel)?_c('div',{staticClass:"calendar-quarters"},_vm._l((_vm.yearQuarters),function(quarter,index){return _c('div',{staticClass:"quarter",class:_vm.quarterClasses(quarter),on:{"click":function($event){return _vm.selectQuarter(quarter)}}},[_c('div',{staticClass:"legend"},[_vm._v(_vm._s(_vm.$legends[_vm.locale].quarter)+" "+_vm._s(++index))]),_c('div',{staticClass:"months"},_vm._l((quarter.months),function(month){return _c('div',{staticClass:"month"},[_c('span',[_vm._v(_vm._s(month.displayDate))])])}),0)])}),0):_vm._e()]):_vm._e(),(_vm.isYearPicker)?_c('div',{staticClass:"mj-calendar"},[_c('div',{staticClass:"calendar-years"},_vm._l((_vm.years),function(year){return _c('div',{staticClass:"year",class:_vm.yearClasses(year),on:{"click":function($event){return _vm.selectYear(year)}}},[_c('span',[_vm._v(_vm._s(year.displayDate))])])}),0)]):_vm._e(),(_vm.showControls)?_c('div',{staticClass:"mj-daterange-picker-controls"},[_c('div',{staticClass:"mj-daterange-picker-button mj-daterange-picker-reset",on:{"click":_vm.reset}},[_vm._v(_vm._s(_vm.resetLegend))]),_c('div',{staticClass:"mj-daterange-picker-button mj-daterange-picker-submit",class:{'is-disabled': !(_vm.values.from && _vm.values.to) },on:{"click":_vm.update}},[_vm._v(_vm._s(_vm.submitLegend))])]):_vm._e()])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a92dc5e2-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/pug-plain-loader!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DateRangePicker.vue?vue&type=template&id=841c2bc0&lang=pug&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"mj-daterange-picker",style:(_vm.cssProps)},[(_vm.availablePanels.length > 1)?_c('div',{staticClass:"panels-choices"},_vm._l((_vm.availablePanels),function(panel){return _c('div',{staticClass:"panel-button",class:{'is-current': panel === _vm.currentPanel},on:{"click":function($event){_vm.currentPanel = panel}}},[_vm._v(_vm._s(_vm.$legends[_vm.locale].panels[panel]))])}),0):_vm._e(),(_vm.isPresetPicker && _vm.presets.length > 1)?_c('div',{staticClass:"preset-ranges"},_vm._l((_vm.availablePresets),function(entry){return _c('div',{staticClass:"preset"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.preset),expression:"preset"}],attrs:{"type":"radio","id":entry},domProps:{"value":entry,"checked":_vm._q(_vm.preset,entry)},on:{"change":function($event){_vm.preset=entry}}}),_c('label',{attrs:{"for":entry}},[_c('span',{staticClass:"check"}),_c('span',[_vm._v(_vm._s(_vm.$legends[_vm.locale].presets[entry]))])])])}),0):_vm._e(),(_vm.isDaysPicker)?_c('div',{staticClass:"mj-calendar",class:_vm.weekSelector ? 'mj-calendar-week' : 'mj-calendar-days'},[_c('div',{staticClass:"calendar-header"},[_c('div',{staticClass:"calendar-previous-month calendar-arrow calendar-arrow-previous",attrs:{"aria-label":_vm.$legends[_vm.locale].previousMonth},on:{"click":function($event){return _vm.changeMonth(1)}}},[_c('svgicon',{attrs:{"icon":"arrow-left","width":"7.4","height":"12"}})],1),_c('div',{staticClass:"calendar-month-name"},[_vm._v(_vm._s(_vm.currentMonthName))]),_c('div',{staticClass:"calendar-previous-month calendar-arrow calendar-arrow-next",attrs:{"aria-label":_vm.$legends[_vm.locale].nextMonth},on:{"click":function($event){return _vm.changeMonth(-1)}}},[_c('svgicon',{attrs:{"icon":"arrow-right","width":"7.4","height":"12"}})],1)]),_c('div',{staticClass:"calendar-days-name"},_vm._l((_vm.firstWeek),function(day){return _c('div',{staticClass:"day"},[_c('span',[_vm._v(_vm._s(day.name))])])}),0),_c('div',{staticClass:"calendar-days"},_vm._l((_vm.monthDays),function(day){return _c('div',{key:_vm._f("date")(day.date,'DDMMYYYY'),staticClass:"day",class:_vm.dayClasses(day),on:{"click":function($event){return _vm.selectDay(day.date)},"mouseover":function($event){return _vm.hoverizeDay(day.date)},"mouseleave":function($event){_vm.hoverRange = []}}},[_c('span',[_vm._v(_vm._s(_vm._f("date")(day.date,'D')))])])}),0)]):_vm._e(),(_vm.isMonthsPicker)?_c('div',{staticClass:"mj-calendar"},[_c('div',{staticClass:"calendar-header"},[_c('div',{staticClass:"calendar-previous-month calendar-arrow calendar-arrow-previous",attrs:{"aria-label":_vm.$legends[_vm.locale].previousYear},on:{"click":function($event){return _vm.changeYear(1)}}},[_c('svgicon',{attrs:{"icon":"arrow-left","width":"7.4","height":"12"}})],1),_c('div',{staticClass:"calendar-month-name"},[_vm._v(_vm._s(_vm.currentYearName))]),_c('div',{staticClass:"calendar-previous-month calendar-arrow calendar-arrow-next",attrs:{"aria-label":_vm.$legends[_vm.locale].nextYear},on:{"click":function($event){return _vm.changeYear(-1)}}},[_c('svgicon',{attrs:{"icon":"arrow-right","width":"7.4","height":"12"}})],1)]),(_vm.isMonthsPanel)?_c('div',{staticClass:"calendar-months"},_vm._l((_vm.yearMonths),function(month){return _c('div',{key:_vm._f("date")(month.date,'DDMMYYYY'),staticClass:"month",class:_vm.monthClasses(month),on:{"click":function($event){return _vm.selectMonth(month)},"mouseover":function($event){return _vm.hoverizeMonth(month.date)},"mouseleave":function($event){_vm.hoverRange = []}}},[_c('span',[_vm._v(_vm._s(month.displayDate))])])}),0):_vm._e(),(_vm.isQuartersPanel)?_c('div',{staticClass:"calendar-quarters"},_vm._l((_vm.yearQuarters),function(quarter,index){return _c('div',{key:index,staticClass:"quarter",class:_vm.quarterClasses(quarter),on:{"click":function($event){return _vm.selectQuarter(quarter)},"mouseover":function($event){return _vm.hoverizeQuarter(quarter.range.start, quarter.range.end)},"mouseleave":function($event){_vm.hoverRange = []}}},[_c('div',{staticClass:"legend"},[_vm._v(_vm._s(_vm.$legends[_vm.locale].quarter)+" "+_vm._s(++index))]),_c('div',{staticClass:"months"},_vm._l((quarter.months),function(month){return _c('div',{staticClass:"month"},[_c('span',[_vm._v(_vm._s(month.displayDate))])])}),0)])}),0):_vm._e()]):_vm._e(),(_vm.isYearPicker)?_c('div',{staticClass:"mj-calendar"},[_c('div',{staticClass:"calendar-years"},_vm._l((_vm.years),function(year,index){return _c('div',{key:index,staticClass:"year",class:_vm.yearClasses(year),on:{"click":function($event){return _vm.selectYear(year)},"mouseover":function($event){return _vm.hoverizeYear(year)},"mouseleave":function($event){_vm.hoverRange = []}}},[_c('span',[_vm._v(_vm._s(year.displayDate))])])}),0)]):_vm._e(),(_vm.showControls)?_c('div',{staticClass:"mj-daterange-picker-controls"},[_c('div',{staticClass:"mj-daterange-picker-button mj-daterange-picker-reset",on:{"click":_vm.reset}},[_vm._v(_vm._s(_vm.resetLegend))]),_c('div',{staticClass:"mj-daterange-picker-button mj-daterange-picker-submit",class:{'is-disabled': !(_vm.values.from && _vm.values.to) },on:{"click":_vm.update}},[_vm._v(_vm._s(_vm.submitLegend))])]):_vm._e()])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/DateRangePicker.vue?vue&type=template&id=94512378&lang=pug&
+// CONCATENATED MODULE: ./src/components/DateRangePicker.vue?vue&type=template&id=841c2bc0&lang=pug&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.number.constructor.js
 var es6_number_constructor = __webpack_require__("c5f6");
@@ -12707,7 +12707,7 @@ var dictonnaries = {
     "nextYear": "Année suivante",
     "quarter": "Trimestre",
     "panels": {
-      "range": "Plage",
+      "days": "Plage",
       "week": "Semaine",
       "month": "Mois",
       "quarter": "Trimestre",
@@ -12739,7 +12739,7 @@ var dictonnaries = {
     "nextYear": "Next year",
     "quarter": "Quarter",
     "panels": {
-      "range": "Range",
+      "days": "Range",
       "week": "Week",
       "month": "Month",
       "quarter": "Quarter",
@@ -12771,7 +12771,7 @@ var dictonnaries = {
     "nextYear": "Nächstes Jahr",
     "quarter": "Quartal",
     "panels": {
-      "range": "Zeitraum",
+      "days": "Zeitraum",
       "week": "Woche",
       "month": "Monat",
       "quarter": "Quartal",
@@ -12803,7 +12803,7 @@ var dictonnaries = {
     "nextYear": "año siguiente",
     "quarter": "Trimestre",
     "panels": {
-      "range": "Rango",
+      "days": "Rango",
       "week": "Semanal",
       "month": "Mensual",
       "quarter": "Trimestral",
@@ -12835,12 +12835,16 @@ var dictonnaries = {
     "nextYear": "Следующий год",
     "quarter": "Квартал",
     "panels": {
-      "range": "Период",
+      "days": "Дни",
+      "weeks": "Недели",
+      "months": "Месяцы",
+      "quarters": "Кварталы",
+      "years": "Года",
+      "day": "День",
       "week": "Неделя",
       "month": "Месяц",
       "quarter": "Квартал",
-      "year": "Год",
-      "day": "День"
+      "year": "Год"
     },
     "presets": {
       "custom": "Пользовательский диапазон",
@@ -12888,6 +12892,8 @@ var locales = {
   es: __webpack_require__("fd2d"),
   ru: __webpack_require__("9f3f")
 };
+var RANGE_PANELS = ['days', 'weeks', 'months', 'quarters', 'years'];
+var SINGLE_PANELS = ['day', 'week', 'month', 'quarter', 'year'];
 external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(svgicon_common_default.a, {
   tagName: 'svgicon'
 });
@@ -12906,7 +12912,10 @@ function (_Vue) {
     _this.currentPanel = null;
     _this.current = null;
     _this.weekSelector = false;
-    _this.daySelector = false;
+    _this.isWeeksRangeOpen = false;
+    _this.isMonthsRangeOpen = false;
+    _this.isQuartersRangeOpen = false;
+    _this.isYearsRangeOpen = false;
     _this.monthDays = [];
     _this.now = new Date().toISOString();
     _this.values = {
@@ -12921,8 +12930,7 @@ function (_Vue) {
   _createClass(default_1, [{
     key: "switchMode",
     value: function switchMode(panel) {
-      this.weekSelector = panel === 'week' ? true : false;
-      this.daySelector = panel === 'day' ? true : false;
+      this.weekSelector = panel === 'week' || panel === 'weeks' ? true : false;
       this.updateCalendar();
     }
   }, {
@@ -13093,56 +13101,272 @@ function (_Vue) {
   }, {
     key: "selectDay",
     value: function selectDay(date) {
+      // Select weeks
       if (this.weekSelector) {
-        this.values.from = Object(date_fns["startOfWeek"])(date, {
-          weekStartsOn: 1
-        });
-        this.values.to = Object(date_fns["endOfWeek"])(date, {
-          weekStartsOn: 1
-        });
-        return;
-      }
+        if (!this.range) {
+          // Select week single
+          this.values.from = Object(date_fns["startOfWeek"])(date, {
+            weekStartsOn: 1
+          });
+          this.values.to = Object(date_fns["endOfWeek"])(date, {
+            weekStartsOn: 1
+          });
+          return;
+        } else {
+          // Select weeks range
+          this.isMonthsRangeOpen = false;
+          this.isQuartersRangeOpen = false;
+          this.isYearsRangeOpen = false;
 
-      if (this.daySelector) {
+          if (!this.values.from && !this.values.to) {
+            this.values.from = Object(date_fns["startOfWeek"])(date, {
+              weekStartsOn: 1
+            });
+            this.values.to = Object(date_fns["endOfWeek"])(date, {
+              weekStartsOn: 1
+            });
+            this.isWeeksRangeOpen = true;
+          } else {
+            if (Object(date_fns["isWithinRange"])(date, this.values.from, this.values.from)) {
+              // On selected weeks
+              this.values.from = Object(date_fns["startOfWeek"])(date, {
+                weekStartsOn: 1
+              });
+              this.values.to = Object(date_fns["endOfWeek"])(date, {
+                weekStartsOn: 1
+              });
+            } else if (Object(date_fns["isBefore"])(date, this.values.from)) {
+              // Before selected weeks
+              this.values.from = Object(date_fns["startOfWeek"])(date, {
+                weekStartsOn: 1
+              });
+              this.values.to = Object(date_fns["endOfWeek"])(date, {
+                weekStartsOn: 1
+              });
+              this.isWeeksRangeOpen = true;
+            } else {
+              // After selected weeks
+              if (this.isWeeksRangeOpen) {
+                this.values.from = Object(date_fns["startOfWeek"])(this.values.from, {
+                  weekStartsOn: 1
+                });
+                this.values.to = Object(date_fns["endOfWeek"])(date, {
+                  weekStartsOn: 1
+                });
+              } else {
+                this.values.from = Object(date_fns["startOfWeek"])(date, {
+                  weekStartsOn: 1
+                });
+                this.values.to = Object(date_fns["endOfWeek"])(date, {
+                  weekStartsOn: 1
+                });
+              }
+
+              this.isWeeksRangeOpen = !this.isWeeksRangeOpen;
+            }
+          }
+
+          this.preset = 'custom';
+          return;
+        }
+      } // Select days
+
+
+      if (!this.range) {
+        // Select day single
         this.values.from = Object(date_fns["startOfDay"])(date);
         this.values.to = Object(date_fns["startOfDay"])(date);
         return;
-      }
+      } else {
+        // Select days range
+        this.isWeeksRangeOpen = false;
+        this.isMonthsRangeOpen = false;
+        this.isQuartersRangeOpen = false;
+        this.isYearsRangeOpen = false;
 
-      if (this.values.from && this.values.to || !this.values.from && !this.values.to) {
-        this.values.from = date;
-        this.values.to = null;
-      } else if (this.values.from && !this.values.to) {
-        if (Object(date_fns["isBefore"])(date, this.values.from)) {
+        if (this.values.from && this.values.to || !this.values.from && !this.values.to) {
           this.values.from = date;
-        } else {
-          this.values.to = date;
-          this.hoverRange = [];
+          this.values.to = null;
+        } else if (this.values.from && !this.values.to) {
+          if (Object(date_fns["isBefore"])(date, this.values.from)) {
+            this.values.from = date;
+          } else {
+            this.values.to = date;
+            this.hoverRange = [];
+          }
         }
-      }
 
-      this.preset = 'custom';
-    }
-  }, {
-    key: "selectQuarter",
-    value: function selectQuarter(quarter) {
-      this.values.from = Object(date_fns["startOfDay"])(Object(date_fns["startOfMonth"])(quarter.range.start));
-      this.values.to = Object(date_fns["endOfMonth"])(quarter.range.end);
-      this.current = this.values.to;
+        this.preset = 'custom';
+      }
     }
   }, {
     key: "selectMonth",
     value: function selectMonth(month) {
-      this.values.from = Object(date_fns["startOfMonth"])(month.date);
-      this.values.to = Object(date_fns["endOfMonth"])(month.date);
-      this.current = this.values.to;
+      if (!this.range) {
+        // Select month single
+        this.values.from = Object(date_fns["startOfMonth"])(month.date);
+        this.values.to = Object(date_fns["endOfMonth"])(month.date);
+        this.current = this.values.to;
+        return;
+      } else {
+        // Select months range
+        this.isWeeksRangeOpen = false;
+        this.isQuartersRangeOpen = false;
+        this.isYearsRangeOpen = false;
+
+        if (!this.values.from && !this.values.to || this.values.from && !this.values.to) {
+          this.values.from = Object(date_fns["startOfMonth"])(month.date);
+          this.values.to = Object(date_fns["endOfMonth"])(month.date);
+          this.current = this.values.to;
+          this.isMonthsRangeOpen = true;
+        } else {
+          if (Object(date_fns["isWithinRange"])(month.date, this.values.from, this.values.to)) {
+            // On selected months
+            if (!this.isMonthsRangeOpen) {
+              this.values.from = Object(date_fns["startOfMonth"])(month.date);
+              this.values.to = Object(date_fns["endOfMonth"])(month.date);
+              this.current = this.values.to;
+            } else {
+              this.values.to = Object(date_fns["endOfMonth"])(month.date);
+              this.current = this.values.to;
+            }
+
+            this.isMonthsRangeOpen = !this.isMonthsRangeOpen;
+          } else if (Object(date_fns["isBefore"])(month.date, this.values.from)) {
+            // Before selected months
+            this.values.from = Object(date_fns["startOfMonth"])(month.date);
+            this.values.to = Object(date_fns["endOfMonth"])(month.date);
+            this.current = this.values.to;
+            this.isMonthsRangeOpen = true;
+          } else {
+            // After selected months
+            if (this.isMonthsRangeOpen) {
+              this.values.to = Object(date_fns["endOfMonth"])(month.date);
+              this.current = this.values.to;
+            } else {
+              this.values.from = Object(date_fns["startOfMonth"])(month.date);
+              this.values.to = Object(date_fns["endOfMonth"])(month.date);
+              this.current = this.values.to;
+            }
+
+            this.isMonthsRangeOpen = !this.isMonthsRangeOpen;
+          }
+        }
+
+        this.preset = 'custom';
+      }
+    }
+  }, {
+    key: "selectQuarter",
+    value: function selectQuarter(quarter) {
+      if (!this.range) {
+        // Select quarter single
+        this.values.from = Object(date_fns["startOfDay"])(Object(date_fns["startOfMonth"])(quarter.range.start));
+        this.values.to = Object(date_fns["endOfMonth"])(quarter.range.end);
+        this.current = this.values.to;
+      } else {
+        // Select quarters range
+        this.isWeeksRangeOpen = false;
+        this.isMonthsRangeOpen = false;
+        this.isYearsRangeOpen = false;
+
+        if (!this.values.from && !this.values.to || this.values.from && !this.values.to) {
+          this.values.from = Object(date_fns["startOfDay"])(Object(date_fns["startOfMonth"])(quarter.range.start));
+          this.values.to = Object(date_fns["endOfMonth"])(quarter.range.end);
+          this.current = this.values.to;
+          this.isQuartersRangeOpen = true;
+        } else {
+          if (Object(date_fns["isWithinRange"])(quarter.range.start, this.values.from, this.values.to)) {
+            // On selected quarters
+            if (!this.isQuartersRangeOpen) {
+              this.values.from = Object(date_fns["startOfDay"])(Object(date_fns["startOfMonth"])(quarter.range.start));
+              this.values.to = Object(date_fns["endOfMonth"])(quarter.range.end);
+              this.current = this.values.to;
+            } else {
+              this.values.to = Object(date_fns["endOfMonth"])(quarter.range.end);
+              this.current = this.values.to;
+            }
+
+            this.isQuartersRangeOpen = !this.isQuartersRangeOpen;
+          } else if (Object(date_fns["isBefore"])(quarter.range.start, this.values.from)) {
+            // Before selected quarters
+            this.values.from = Object(date_fns["startOfDay"])(Object(date_fns["startOfMonth"])(quarter.range.start));
+            this.values.to = Object(date_fns["endOfMonth"])(quarter.range.end);
+            this.current = this.values.to;
+            this.isQuartersRangeOpen = true;
+          } else {
+            // After selected quarters
+            if (this.isQuartersRangeOpen) {
+              this.values.to = Object(date_fns["endOfMonth"])(quarter.range.end);
+              this.current = this.values.to;
+            } else {
+              this.values.from = Object(date_fns["startOfDay"])(Object(date_fns["startOfMonth"])(quarter.range.start));
+              this.values.to = Object(date_fns["endOfMonth"])(quarter.range.end);
+              this.current = this.values.to;
+            }
+
+            this.isQuartersRangeOpen = !this.isQuartersRangeOpen;
+          }
+        }
+
+        this.preset = 'custom';
+      }
     }
   }, {
     key: "selectYear",
     value: function selectYear(year) {
-      this.values.from = Object(date_fns["startOfYear"])(year.date);
-      this.values.to = Object(date_fns["endOfYear"])(year.date);
-      this.current = this.values.to;
+      if (!this.range) {
+        // Select year single
+        this.values.from = Object(date_fns["startOfYear"])(year.date);
+        this.values.to = Object(date_fns["endOfYear"])(year.date);
+        this.current = this.values.to;
+      } else {
+        // Select years range
+        this.isWeeksRangeOpen = false;
+        this.isMonthsRangeOpen = false;
+        this.isQuartersRangeOpen = false;
+
+        if (!this.values.from && !this.values.to || this.values.from && !this.values.to) {
+          this.values.from = Object(date_fns["startOfYear"])(year.date);
+          this.values.to = Object(date_fns["endOfYear"])(year.date);
+          this.current = this.values.to;
+          this.isYearsRangeOpen = true;
+        } else {
+          if (Object(date_fns["isWithinRange"])(year.date, this.values.from, this.values.to)) {
+            // On selected years
+            if (!this.isYearsRangeOpen) {
+              this.values.from = Object(date_fns["startOfYear"])(year.date);
+              this.values.to = Object(date_fns["endOfYear"])(year.date);
+              this.current = this.values.to;
+            } else {
+              this.values.to = Object(date_fns["endOfYear"])(year.date);
+              this.current = this.values.to;
+            }
+
+            this.isYearsRangeOpen = !this.isYearsRangeOpen;
+          } else if (Object(date_fns["isBefore"])(Object(date_fns["startOfYear"])(year.date), this.values.from)) {
+            // Before selected years
+            this.values.from = Object(date_fns["startOfYear"])(year.date);
+            this.values.to = Object(date_fns["endOfYear"])(year.date);
+            this.current = this.values.to;
+            this.isYearsRangeOpen = true;
+          } else {
+            // After selected years
+            if (this.isYearsRangeOpen) {
+              this.values.to = Object(date_fns["endOfYear"])(year.date);
+              this.current = this.values.to;
+            } else {
+              this.values.from = Object(date_fns["startOfYear"])(year.date);
+              this.values.to = Object(date_fns["endOfYear"])(year.date);
+              this.current = this.values.to;
+            }
+
+            this.isYearsRangeOpen = !this.isYearsRangeOpen;
+          }
+        }
+
+        this.preset = 'custom';
+      }
     }
   }, {
     key: "hoverizeDay",
@@ -13153,13 +13377,79 @@ function (_Vue) {
       }
 
       if (this.weekSelector) {
-        this.hoverRange = [Object(date_fns["startOfWeek"])(date, {
-          weekStartsOn: 1
-        }), Object(date_fns["endOfWeek"])(date, {
-          weekStartsOn: 1
-        })];
+        if (this.range) {
+          if (!this.values.from && !this.values.to || this.values.from && !this.values.to) {
+            this.hoverRange = [Object(date_fns["startOfWeek"])(date, {
+              weekStartsOn: 1
+            }), Object(date_fns["endOfWeek"])(date, {
+              weekStartsOn: 1
+            })];
+            return;
+          } else {
+            if (Object(date_fns["isBefore"])(date, this.values.from)) {
+              this.hoverRange = [Object(date_fns["startOfWeek"])(date, {
+                weekStartsOn: 1
+              }), Object(date_fns["endOfWeek"])(date, {
+                weekStartsOn: 1
+              })];
+              return;
+            } else {
+              if (this.isWeeksRangeOpen) {
+                this.hoverRange = [Object(date_fns["startOfWeek"])(this.values.from, {
+                  weekStartsOn: 1
+                }), Object(date_fns["endOfWeek"])(date, {
+                  weekStartsOn: 1
+                })];
+              } else {
+                this.hoverRange = [Object(date_fns["startOfWeek"])(date, {
+                  weekStartsOn: 1
+                }), Object(date_fns["endOfWeek"])(date, {
+                  weekStartsOn: 1
+                })];
+              }
+
+              return;
+            }
+          }
+        } else {
+          this.hoverRange = [Object(date_fns["startOfWeek"])(date, {
+            weekStartsOn: 1
+          }), Object(date_fns["endOfWeek"])(date, {
+            weekStartsOn: 1
+          })];
+        }
       } else {
         this.hoverRange = [this.values.from, date];
+      }
+    }
+  }, {
+    key: "hoverizeMonth",
+    value: function hoverizeMonth(date) {
+      if (this.range && !Object(date_fns["isBefore"])(date, this.values.from) && this.isMonthsRangeOpen) {
+        this.hoverRange = [Object(date_fns["startOfMonth"])(this.values.from), Object(date_fns["endOfMonth"])(date)];
+        return;
+      } else {
+        this.hoverRange = [];
+      }
+    }
+  }, {
+    key: "hoverizeQuarter",
+    value: function hoverizeQuarter(start, end) {
+      if (this.range && !Object(date_fns["isBefore"])(start, this.values.from) && this.isQuartersRangeOpen) {
+        this.hoverRange = [this.values.from, end];
+        return;
+      } else {
+        this.hoverRange = [];
+      }
+    }
+  }, {
+    key: "hoverizeYear",
+    value: function hoverizeYear(year) {
+      if (this.range && !Object(date_fns["isBefore"])(Object(date_fns["startOfYear"])(year.date), this.values.from) && this.isYearsRangeOpen) {
+        this.hoverRange = [this.values.from, Object(date_fns["endOfYear"])(year.date)];
+        return;
+      } else {
+        this.hoverRange = [];
       }
     }
   }, {
@@ -13228,6 +13518,10 @@ function (_Vue) {
         classes.push('is-selected');
       }
 
+      if (this.hoverRange.length === 2 && Object(date_fns["isWithinRange"])(month.date, this.hoverRange[0], this.hoverRange[1])) {
+        classes.push('is-in-range');
+      }
+
       return classes;
     }
   }, {
@@ -13239,6 +13533,10 @@ function (_Vue) {
         classes.push('is-selected');
       }
 
+      if (this.hoverRange.length === 2 && Object(date_fns["isWithinRange"])(quarter.months[1].date, this.hoverRange[0], this.hoverRange[1])) {
+        classes.push('is-in-range');
+      }
+
       return classes;
     }
   }, {
@@ -13247,8 +13545,12 @@ function (_Vue) {
       var classes = [];
 
       if (this.values.to && this.values.from) {
-        if (Object(date_fns["isSameDay"])(this.values.from, Object(date_fns["startOfYear"])(year.date)) && Object(date_fns["isSameDay"])(this.values.to, Object(date_fns["endOfYear"])(year.date))) {
+        if ((Object(date_fns["isSameDay"])(this.values.from, Object(date_fns["startOfYear"])(year.date)) || Object(date_fns["isAfter"])(Object(date_fns["startOfYear"])(year.date), this.values.from)) && (Object(date_fns["isSameDay"])(this.values.to, Object(date_fns["endOfYear"])(year.date)) || Object(date_fns["isBefore"])(Object(date_fns["endOfYear"])(year.date), this.values.to))) {
           classes.push('is-selected');
+        }
+
+        if (this.hoverRange.length === 2 && Object(date_fns["isWithinRange"])(year.date, this.hoverRange[0], this.hoverRange[1])) {
+          classes.push('is-in-range');
         }
       }
 
@@ -13257,7 +13559,11 @@ function (_Vue) {
   }, {
     key: "availablePanels",
     get: function get() {
-      return this.panels;
+      if (this.range) {
+        return RANGE_PANELS;
+      }
+
+      return SINGLE_PANELS;
     }
   }, {
     key: "availablePresets",
@@ -13337,11 +13643,13 @@ function (_Vue) {
       var month = Object(date_fns["startOfYear"])(this.current);
 
       while (months.length !== 12) {
+        var str1 = Object(date_fns["format"])(month, 'MMMM', {
+          locale: locales[this.locale]
+        });
+        var str2 = str1[0].toUpperCase() + str1.slice(1);
         months.push({
           date: month,
-          displayDate: Object(date_fns["format"])(month, 'MMMM', {
-            locale: locales[this.locale]
-          })
+          displayDate: str2
         });
         month = Object(date_fns["addMonths"])(month, 1);
       }
@@ -13427,37 +13735,42 @@ function (_Vue) {
   }, {
     key: "isPresetPicker",
     get: function get() {
-      return this.currentPanel === 'range';
+      return this.currentPanel === 'days';
     }
   }, {
     key: "isDaysPicker",
     get: function get() {
-      return this.currentPanel === 'range' || this.currentPanel === 'week' || this.currentPanel === 'day';
+      return this.currentPanel === 'days' || this.currentPanel === 'weeks' || this.currentPanel === 'week' || this.currentPanel === 'day';
     }
   }, {
     key: "isMonthsPicker",
     get: function get() {
-      return this.currentPanel === 'month' || this.currentPanel === 'quarter';
+      return this.currentPanel === 'months' || this.currentPanel === 'month' || this.currentPanel === 'quarter' || this.currentPanel === 'quarters';
     }
   }, {
     key: "isYearPicker",
     get: function get() {
-      return this.currentPanel === 'year';
+      return this.currentPanel === 'year' || this.currentPanel === 'years';
     }
   }, {
     key: "isMonthsPanel",
     get: function get() {
-      return this.currentPanel === 'month';
+      return this.currentPanel === 'months' || this.currentPanel === 'month';
     }
   }, {
     key: "isQuartersPanel",
     get: function get() {
-      return this.currentPanel === 'quarter';
+      return this.currentPanel === 'quarter' || this.currentPanel === 'quarters';
     }
   }]);
 
   return default_1;
 }(external_commonjs_vue_commonjs2_vue_root_Vue_default.a);
+
+__decorate([Prop({
+  type: Boolean,
+  default: true
+})], DateRangePickervue_type_script_lang_ts_default_1.prototype, "range", void 0);
 
 __decorate([Prop({
   type: String,
@@ -13505,25 +13818,18 @@ __decorate([Prop({
 })], DateRangePickervue_type_script_lang_ts_default_1.prototype, "yearsCount", void 0);
 
 __decorate([Prop({
-  type: Array,
-  default: function _default() {
-    return ['range', 'week', 'month', 'quarter', 'year'];
-  }
-})], DateRangePickervue_type_script_lang_ts_default_1.prototype, "panels", void 0);
-
-__decorate([Prop({
   type: Object,
   default: function _default() {
     return {
-      primary: '#3297DB',
-      secondary: '#2D3E50',
-      ternary: '#93A0BD',
-      border: '#e6e6e6',
+      primary: '#ebf5fe',
+      secondary: '#b1b1b1',
+      ternary: '#b1b1b1',
+      border: '#dddddd',
       light: '#ffffff',
-      dark: '#000000',
+      dark: '#373a3c',
       hovers: {
-        day: '#CCC',
-        range: '#e6e6e6'
+        day: '#def0d7',
+        range: '#def0d7'
       }
     };
   }
