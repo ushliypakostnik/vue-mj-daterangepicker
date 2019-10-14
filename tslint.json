@@ -22,6 +22,6 @@
     "no-console": false,
     "no-consecutive-blank-lines": false,
     "member-access": [true, "no-public"],
-    "max-line-length": [true, 150]
+    "max-line-length": [true, 250]
   }
 }

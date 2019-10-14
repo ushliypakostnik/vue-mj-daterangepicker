@@ -83,8 +83,10 @@
         .year(
           v-for="(year, index) in years"
           :key="index"
-          @click="selectYear(year)"
           :class="yearClasses(year)"
+          @click="selectYear(year)"
+          @mouseover="hoverizeYear(year)"
+          @mouseleave="hoverRange = []"
         )
           span {{ year.displayDate }}
 
@@ -144,7 +146,7 @@
     ru: require('date-fns/locale/ru'),
   }
 
-  const RANGE_PANELS = [ 'days', 'weeks', 'months', 'quarters', 'year']
+  const RANGE_PANELS = [ 'days', 'weeks', 'months', 'quarters', 'years']
   const SINGLE_PANELS = [ 'day', 'week', 'month', 'quarter', 'year']
 
   Vue.use(SvgIcon, {
@@ -165,6 +167,7 @@
     isWeeksRangeOpen = false
     isMonthsRangeOpen = false
     isQuartersRangeOpen = false
+    isYearsRangeOpen = false
     monthDays = []
     now = new Date().toISOString()
     values = {
@@ -440,7 +443,7 @@
     }
 
     get isYearPicker(): boolean {
-      return this.currentPanel === 'year'
+      return this.currentPanel === 'year' || this.currentPanel === 'years'
     }
 
     get isMonthsPanel(): boolean {
@@ -511,6 +514,7 @@
           // Select weeks range
           this.isMonthsRangeOpen = false
           this.isQuartersRangeOpen = false
+          this.isYearsRangeOpen = false
           if (!this.values.from && !this.values.to) {
             this.values.from = startOfWeek(date, { weekStartsOn: 1 })
             this.values.to = endOfWeek(date, { weekStartsOn: 1 })
@@ -553,6 +557,7 @@
         this.isWeeksRangeOpen = false
         this.isMonthsRangeOpen = false
         this.isQuartersRangeOpen = false
+        this.isYearsRangeOpen = false
         if ((this.values.from && this.values.to) || (!this.values.from && !this.values.to)) {
           this.values.from = date
           this.values.to = null
@@ -579,6 +584,7 @@
         // Select months range
         this.isWeeksRangeOpen = false
         this.isQuartersRangeOpen = false
+        this.isYearsRangeOpen = false
         if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
           this.values.from = startOfMonth(month.date)
           this.values.to = endOfMonth(month.date)
@@ -629,6 +635,7 @@
         // Select quarters range
         this.isWeeksRangeOpen = false
         this.isMonthsRangeOpen = false
+        this.isYearsRangeOpen = false
         if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
           this.values.from = startOfDay(startOfMonth(quarter.range.start))
           this.values.to = endOfMonth(quarter.range.end)
@@ -670,9 +677,54 @@
     }
 
     selectYear(year) {
-      this.values.from = startOfYear(year.date)
-      this.values.to = endOfYear(year.date)
-      this.current = this.values.to
+      if (!this.range) {
+        // Select year single
+        this.values.from = startOfYear(year.date)
+        this.values.to = endOfYear(year.date)
+        this.current = this.values.to
+      } else {
+        // Select years range
+        this.isWeeksRangeOpen = false
+        this.isMonthsRangeOpen = false
+        this.isQuartersRangeOpen = false
+        if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
+          this.values.from = startOfYear(year.date)
+          this.values.to = endOfYear(year.date)
+          this.current = this.values.to
+          this.isYearsRangeOpen = true
+        } else {
+          if (isWithinRange(year.date, this.values.from, this.values.to)) {
+            // On selected years
+            if (!this.isYearsRangeOpen) {
+              this.values.from = startOfYear(year.date)
+              this.values.to = endOfYear(year.date)
+              this.current = this.values.to
+            } else {
+              this.values.to = endOfYear(year.date)
+              this.current = this.values.to
+            }
+            this.isYearsRangeOpen = !this.isYearsRangeOpen
+          } else if (isBefore(startOfYear(year.date), this.values.from)) {
+            // Before selected years
+            this.values.from = startOfYear(year.date)
+            this.values.to = endOfYear(year.date)
+            this.current = this.values.to
+            this.isYearsRangeOpen = true
+          } else {
+            // After selected years
+            if (this.isYearsRangeOpen) {
+              this.values.to = endOfYear(year.date)
+              this.current = this.values.to
+            } else {
+              this.values.from = startOfYear(year.date)
+              this.values.to = endOfYear(year.date)
+              this.current = this.values.to
+            }
+            this.isYearsRangeOpen = !this.isYearsRangeOpen
+          }
+        }
+        this.preset = 'custom'
+      }
     }
 
     hoverizeDay(date) {
@@ -718,6 +770,15 @@
     hoverizeQuarter(start, end) {
       if (this.range && !isBefore(start, this.values.from) && this.isQuartersRangeOpen) {
         this.hoverRange = [this.values.from, end]
+        return
+      } else {
+        this.hoverRange = []
+      }
+    }
+
+    hoverizeYear(year) {
+      if (this.range && !isBefore(startOfYear(year.date), this.values.from) && this.isYearsRangeOpen) {
+        this.hoverRange = [this.values.from, endOfYear(year.date)]
         return
       } else {
         this.hoverRange = []
@@ -794,6 +855,7 @@
 
     quarterClasses(quarter) {
       const classes = []
+
       if (this.values.to && this.values.from &&
         isWithinRange(quarter.range.start, this.values.from, this.values.to) &&
         isWithinRange(quarter.range.end, this.values.from, this.values.to)) {
@@ -807,9 +869,13 @@
 
     yearClasses(year) {
       const classes = []
+
       if (this.values.to && this.values.from) {
-        if (isSameDay(this.values.from, startOfYear(year.date)) && isSameDay(this.values.to, endOfYear(year.date))) {
+        if ((isSameDay(this.values.from, startOfYear(year.date)) || isAfter(startOfYear(year.date), this.values.from)) && (isSameDay(this.values.to, endOfYear(year.date)) || isBefore(endOfYear(year.date), this.values.to))) {
           classes.push('is-selected')
+        }
+        if (this.hoverRange.length === 2 && isWithinRange(year.date, this.hoverRange[0], this.hoverRange[1])) {
+          classes.push('is-in-range')
         }
       }
       return classes
@@ -1045,6 +1111,10 @@
       margin: 10px 0;
 
       &:hover {
+        background-color: var(--hover-range-color);
+      }
+
+      &.is-in-range {
         background-color: var(--hover-range-color);
       }
 
