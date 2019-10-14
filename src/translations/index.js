@@ -139,6 +139,7 @@ const dictonnaries = {
       "days": "Дни",
       "weeks": "Недели",
       "months": "Месяцы",
+      "quarters": "Кварталы",
       "day": "День",
       "week": "Неделя",
       "month": "Месяц",
