@@ -769,26 +769,26 @@
         return
       }
       if (this.weekSelector) {
+        let availableRange = []
+
         if (this.range) {
           if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
-            this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
-            return
+            availableRange = this.getAllowedDatesOfRange([startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })])
           } else {
             if (isBefore(date, this.values.from)) {
-              this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
-              return
+              availableRange = this.getAllowedDatesOfRange([startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })])
             } else {
               if (this.isWeeksRangeOpen) {
-                this.hoverRange = [startOfWeek(this.values.from, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+                availableRange = this.getAllowedDatesOfRange([startOfWeek(this.values.from, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })])
               } else {
-                this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+                availableRange = this.getAllowedDatesOfRange([startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })])
               }
-              return
             }
           }
         } else {
-          this.hoverRange = [startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })]
+          availableRange = this.getAllowedDatesOfRange([startOfWeek(date, { weekStartsOn: 1 }), endOfWeek(date, { weekStartsOn: 1 })])
         }
+        this.hoverRange = [availableRange[0], availableRange[availableRange.length - 1]]
       } else {
         this.hoverRange = [this.values.from, date]
       }
