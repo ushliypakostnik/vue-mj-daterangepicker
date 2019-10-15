@@ -1,10 +1,16 @@
 <template lang="pug">
   div
     div(style="margin: 20px 0;")
-      date-range-picker(:yearsCount="3" locale="ru" @select="checkUpdate" :show-controls="false" :presets="[]" :range="true")
+      date-range-picker(:yearsCount="3" locale="ru" @select="checkUpdate" :show-controls="false" :presets="[]" :range="true" allowFrom="2017-06-15T00:00:00.000" allowTo="2019-11-15T00:00:00.000" :yearsFuture="2" :yearsPast="4" :future="false" :past="false")
 
     div(style="margin: 20px 0;")
-      date-range-picker(:yearsCount="3" locale="ru" @select="checkUpdate" :show-controls="false" :range="false")
+      date-range-picker(:yearsCount="3" locale="ru" @select="checkUpdate" :show-controls="false" :range="false" allowFrom="2019-06-15T00:00:00.000" allowTo="2019-11-15T00:00:00.000" :yearsFuture="2" :yearsPast="4" :future="false" :past="false")
+
+    div(style="margin: 20px 0;")
+      date-range-picker(:yearsCount="3" locale="ru" @select="checkUpdate" :show-controls="false" :presets="[]" :range="true" allowFrom="2017-06-15T00:00:00.000" allowTo="2019-11-15T00:00:00.000" :yearsFuture="2" :yearsPast="4")
+
+    div(style="margin: 20px 0;")
+      date-range-picker(:yearsCount="3" locale="ru" @select="checkUpdate" :show-controls="false" :range="false" allowFrom="2019-06-15T00:00:00.000" allowTo="2019-11-15T00:00:00.000" :yearsFuture="2" :yearsPast="4")
 </template>
 
 <script lang="ts">
