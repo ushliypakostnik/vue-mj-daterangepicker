@@ -171,8 +171,6 @@
     isYearsRangeOpen = false
     monthDays = []
     now = new Date().toISOString()
-    start = null
-    end = null
     values = {
       from: null,
       to: null
@@ -229,16 +227,6 @@
       type: Number,
       default: 2
     }) yearsCount
-
-    @Prop({
-      type: Number,
-      default: null
-    }) yearsPast
-
-    @Prop({
-      type: Number,
-      default: null
-    }) yearsFuture
 
     @Prop({
       type: String,
@@ -445,10 +433,10 @@
 
     get years() {
       const years = []
-      const futureCount = this.yearsFuture ? this.yearsFuture : this.yearsCount
-      const pastCount = this.yearsPast ? this.yearsPast : this.yearsCount
-      let i: number = +this.future * futureCount + +this.past * pastCount + 1
-      let start = this.future ? addYears(this.now, futureCount) : this.now
+      let i: number = this.yearsCount
+      let start = this.future ? addYears(this.now, this.yearsCount) : this.now
+
+      i = +this.future * this.yearsCount + +this.past * this.yearsCount + 1
 
       while (i !== 0) {
         const isYearAllowed = this.isRangeAllowed([startOfYear(start), endOfYear(start)])
@@ -461,6 +449,7 @@
         start = subYears(start, 1)
         i = i - 1
       }
+
       return years.reverse()
     }
 
@@ -510,9 +499,6 @@
       // Update Calendar
       this.updateCalendar()
 
-      this.start = startOfYear(this.years[0].date)
-      this.end = endOfYear(this.years[this.years.length - 1].date)
-
       // Set current panel
       this.currentPanel = this.panel || this.availablePanels[0]
     }
@@ -548,9 +534,9 @@
     }
 
     selectDay(date) {
+      // Select weeks
       let range
 
-      // Select weeks
       if (this.weekSelector) {
         if (!this.range) {
           // Select week single
@@ -619,13 +605,11 @@
     }
 
     selectMonth(month) {
-      let range
 
       if (!this.range) {
         // Select month single
-        range = this.getAllowedDatesOfRange([startOfMonth(month.date), endOfMonth(month.date)])
-        this.values.from = range[0]
-        this.values.to = range[range.length - 1]
+        this.values.from = startOfMonth(month.date)
+        this.values.to = endOfMonth(month.date)
         this.current = this.values.to
         return
       } else {
@@ -634,47 +618,50 @@
         this.isQuartersRangeOpen = false
         this.isYearsRangeOpen = false
         if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
-          range = this.getAllowedDatesOfRange([startOfMonth(month.date), endOfMonth(month.date)])
+          this.values.from = startOfMonth(month.date)
+          this.values.to = endOfMonth(month.date)
           this.current = this.values.to
           this.isMonthsRangeOpen = true
         } else {
           if (isWithinRange(month.date, this.values.from, this.values.to)) {
             // On selected months
             if (!this.isMonthsRangeOpen) {
-              range = this.getAllowedDatesOfRange([startOfMonth(month.date), endOfMonth(month.date)])
+              this.values.from = startOfMonth(month.date)
+              this.values.to = endOfMonth(month.date)
+              this.current = this.values.to
             } else {
-              range = this.getAllowedDatesOfRange([this.values.from, endOfMonth(month.date)])
+              this.values.to = endOfMonth(month.date)
+              this.current = this.values.to
             }
             this.isMonthsRangeOpen = !this.isMonthsRangeOpen
           } else if (isBefore(month.date, this.values.from)) {
             // Before selected months
-            range = this.getAllowedDatesOfRange([startOfMonth(month.date), endOfMonth(month.date)])
+            this.values.from = startOfMonth(month.date)
+            this.values.to = endOfMonth(month.date)
+            this.current = this.values.to
             this.isMonthsRangeOpen = true
           } else {
             // After selected months
             if (this.isMonthsRangeOpen) {
-              range = this.getAllowedDatesOfRange([this.values.from, endOfMonth(month.date)])
+              this.values.to = endOfMonth(month.date)
+              this.current = this.values.to
             } else {
-              range = this.getAllowedDatesOfRange([startOfMonth(month.date), endOfMonth(month.date)])
+              this.values.from = startOfMonth(month.date)
+              this.values.to = endOfMonth(month.date)
+              this.current = this.values.to
             }
             this.isMonthsRangeOpen = !this.isMonthsRangeOpen
           }
         }
-        this.values.from = range[0]
-        this.values.to = range[range.length - 1]
-        this.current = this.values.to
         this.preset = 'custom'
       }
     }
 
     selectQuarter(quarter) {
-      let range
-
       if (!this.range) {
         // Select quarter single
-        range = this.getAllowedDatesOfRange([startOfDay(startOfMonth(quarter.range.start)), endOfMonth(quarter.range.end)])
-        this.values.from = range[0]
-        this.values.to = range[range.length - 1]
+        this.values.from = startOfDay(startOfMonth(quarter.range.start))
+        this.values.to = endOfMonth(quarter.range.end)
         this.current = this.values.to
         return
       } else {
@@ -683,46 +670,50 @@
         this.isMonthsRangeOpen = false
         this.isYearsRangeOpen = false
         if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
-          range = this.getAllowedDatesOfRange([startOfDay(startOfMonth(quarter.range.start)), endOfMonth(quarter.range.end)])
+          this.values.from = startOfDay(startOfMonth(quarter.range.start))
+          this.values.to = endOfMonth(quarter.range.end)
+          this.current = this.values.to
           this.isQuartersRangeOpen = true
         } else {
           if (isWithinRange(quarter.range.start, this.values.from, this.values.to)) {
             // On selected quarters
             if (!this.isQuartersRangeOpen) {
-              range = this.getAllowedDatesOfRange([startOfDay(startOfMonth(quarter.range.start)), endOfMonth(quarter.range.end)])
+              this.values.from = startOfDay(startOfMonth(quarter.range.start))
+              this.values.to = endOfMonth(quarter.range.end)
+              this.current = this.values.to
             } else {
-              range = this.getAllowedDatesOfRange([this.values.from, endOfMonth(quarter.range.end)])
+              this.values.to = endOfMonth(quarter.range.end)
+              this.current = this.values.to
             }
             this.isQuartersRangeOpen = !this.isQuartersRangeOpen
           } else if (isBefore(quarter.range.start, this.values.from)) {
             // Before selected quarters
-            range = this.getAllowedDatesOfRange([startOfDay(startOfMonth(quarter.range.start)), endOfMonth(quarter.range.end)])
+            this.values.from = startOfDay(startOfMonth(quarter.range.start))
+            this.values.to = endOfMonth(quarter.range.end)
+            this.current = this.values.to
             this.isQuartersRangeOpen = true
           } else {
             // After selected quarters
             if (this.isQuartersRangeOpen) {
-              range = this.getAllowedDatesOfRange([this.values.from, endOfMonth(quarter.range.end)])
+              this.values.to = endOfMonth(quarter.range.end)
+              this.current = this.values.to
             } else {
-              range = this.getAllowedDatesOfRange([startOfDay(startOfMonth(quarter.range.start)), endOfMonth(quarter.range.end)])
+              this.values.from = startOfDay(startOfMonth(quarter.range.start))
+              this.values.to = endOfMonth(quarter.range.end)
+              this.current = this.values.to
             }
             this.isQuartersRangeOpen = !this.isQuartersRangeOpen
           }
         }
-        this.values.from = range[0]
-        this.values.to = range[range.length - 1]
-        this.current = this.values.to
         this.preset = 'custom'
       }
     }
 
     selectYear(year) {
-      let range
-
       if (!this.range) {
         // Select year single
-        range = this.getAllowedDatesOfRange([startOfYear(year.date), endOfYear(year.date)])
-        this.values.from = range[0]
-        this.values.to = range[range.length - 1]
+        this.values.from = startOfYear(year.date)
+        this.values.to = endOfYear(year.date)
         this.current = this.values.to
         return
       } else {
@@ -731,34 +722,41 @@
         this.isMonthsRangeOpen = false
         this.isQuartersRangeOpen = false
         if ((!this.values.from && !this.values.to) || (this.values.from && !this.values.to)) {
-          range = this.getAllowedDatesOfRange([startOfYear(year.date), endOfYear(year.date)])
+          this.values.from = startOfYear(year.date)
+          this.values.to = endOfYear(year.date)
+          this.current = this.values.to
           this.isYearsRangeOpen = true
         } else {
           if (isWithinRange(year.date, this.values.from, this.values.to)) {
             // On selected years
             if (!this.isYearsRangeOpen) {
-              range = this.getAllowedDatesOfRange([startOfYear(year.date), endOfYear(year.date)])
+              this.values.from = startOfYear(year.date)
+              this.values.to = endOfYear(year.date)
+              this.current = this.values.to
             } else {
-              range = this.getAllowedDatesOfRange([this.values.from, endOfYear(year.date)])
+              this.values.to = endOfYear(year.date)
+              this.current = this.values.to
             }
             this.isYearsRangeOpen = !this.isYearsRangeOpen
           } else if (isBefore(startOfYear(year.date), this.values.from)) {
             // Before selected years
-            range = this.getAllowedDatesOfRange([startOfYear(year.date), endOfYear(year.date)])
+            this.values.from = startOfYear(year.date)
+            this.values.to = endOfYear(year.date)
+            this.current = this.values.to
             this.isYearsRangeOpen = true
           } else {
             // After selected years
             if (this.isYearsRangeOpen) {
-              range = this.getAllowedDatesOfRange([this.values.from, endOfYear(year.date)])
+              this.values.to = endOfYear(year.date)
+              this.current = this.values.to
             } else {
-              range = this.getAllowedDatesOfRange([startOfYear(year.date), endOfYear(year.date)])
+              this.values.from = startOfYear(year.date)
+              this.values.to = endOfYear(year.date)
+              this.current = this.values.to
             }
             this.isYearsRangeOpen = !this.isYearsRangeOpen
           }
         }
-        this.values.from = range[0]
-        this.values.to = range[range.length - 1]
-        this.current = this.values.to
         this.preset = 'custom'
       }
     }
@@ -887,7 +885,7 @@
       if (!month.selectable) {
         classes.push('is-disabled')
       }
-      if (this.values.from && this.values.to && this.isWithinRangeCustom(startOfMonth(month.date), endOfMonth(month.date), this.values.from, this.values.to)) {
+      if (this.values.to && this.values.from && isWithinRange(month.date, this.values.from, this.values.to)) {
         classes.push('is-selected')
       }
       if (this.hoverRange.length === 2 && isWithinRange(month.date, this.hoverRange[0], this.hoverRange[1])) {
@@ -902,7 +900,9 @@
       if (!quarter.selectable) {
         classes.push('is-disabled')
       }
-      if (this.values.from && this.values.to && this.isWithinRangeCustom(quarter.range.start, quarter.range.end, this.values.from, this.values.to)) {
+      if (this.values.to && this.values.from &&
+        isWithinRange(quarter.range.start, this.values.from, this.values.to) &&
+        isWithinRange(quarter.range.end, this.values.from, this.values.to)) {
           classes.push('is-selected')
       }
       if (this.hoverRange.length === 2 && isWithinRange(quarter.months[1].date, this.hoverRange[0], this.hoverRange[1])) {
@@ -917,11 +917,13 @@
       if (!year.selectable) {
         classes.push('is-disabled')
       }
-      if (this.values.from && this.values.to && this.isWithinRangeCustom(startOfYear(year.date), endOfYear(year.date), this.values.from, this.values.to)) {
-        classes.push('is-selected')
-      }
-      if (this.hoverRange.length === 2 && isWithinRange(year.date, this.hoverRange[0], this.hoverRange[1])) {
-        classes.push('is-in-range')
+      if (this.values.to && this.values.from) {
+        if ((isSameDay(this.values.from, startOfYear(year.date)) || isAfter(startOfYear(year.date), this.values.from)) && (isSameDay(this.values.to, endOfYear(year.date)) || isBefore(endOfYear(year.date), this.values.to))) {
+          classes.push('is-selected')
+        }
+        if (this.hoverRange.length === 2 && isWithinRange(year.date, this.hoverRange[0], this.hoverRange[1])) {
+          classes.push('is-in-range')
+        }
       }
       return classes
     }
@@ -938,29 +940,8 @@
       return isAllowed
     }
 
-    isWithinRangeCustom(from, to, start, end) {
-      return isWithinRange(from, start, end) || isWithinRange(to, start, end) || (isBefore(from, start) && isAfter(to, end))
-    }
-
     isRangeAllowed([from, to]) {
-      let rangeFrom
-      let rangeTo
-
-      if (!this.past) {
-        rangeFrom = subDays(this.now, 1)
-      } else if (this.allowFrom) {
-        rangeFrom = this.allowFrom
-      } else {
-        rangeFrom = this.start
-      }
-      if (!this.future) {
-        rangeTo = addDays(this.now, 1)
-      } else if (this.allowTo) {
-        rangeTo = this.allowTo
-      } else {
-        rangeFrom = this.end
-      }
-      return isWithinRange(from, rangeFrom, rangeTo) || isWithinRange(to, rangeFrom, rangeTo) || (isBefore(from, rangeFrom) && isAfter(to, rangeTo))
+      return this.isDateAllowed(from) && this.isDateAllowed(to)
     }
 
     getAllowedDatesOfRange([from, to]) {
