@@ -1127,7 +1127,7 @@
 
       &.is-disabled {
         cursor: not-allowed;
-        opacity: 0.5;
+        opacity: 0.33;
         pointer-events: none;
       }
 
@@ -1179,8 +1179,9 @@
         cursor: not-allowed;
         pointer-events: none;
 
-        .months {
-          opacity: 0.5;
+        .months,
+        .legend {
+          opacity: 0.33;
         }
       }
 
@@ -1218,7 +1219,7 @@
 
       &.is-disabled {
         cursor: not-allowed;
-        opacity: 0.5;
+        opacity: 0.33;
         pointer-events: none;
       }
 
@@ -1267,13 +1268,7 @@
 
     &.is-disabled {
       cursor: not-allowed;
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    &.is-disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
+      opacity: 0.33;
       pointer-events: none;
     }
 
@@ -1353,7 +1348,7 @@
   color: white;
 
   &.is-disabled {
-    opacity: 0.5;
+    opacity: 0.33;
     cursor: not-allowed;
     pointer-events: none;
   }
