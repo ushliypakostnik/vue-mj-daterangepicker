@@ -1,5 +1,5 @@
 <template lang="pug">
-  .mj-daterange-picker(:style="cssProps")
+  .mj-daterange-picker(:style="cssProps" :class="range ? 'picker--range' : 'picker--single'")
     .panels-choices(v-if="availablePanels.length > 1")
       .panel-button(
         v-for="panel in availablePanels"
@@ -147,8 +147,8 @@
     ru: require('date-fns/locale/ru'),
   }
 
-  const RANGE_PANELS = [ 'days', 'weeks', 'months', 'quarters', 'years']
-  const SINGLE_PANELS = [ 'day', 'week', 'month', 'quarter', 'year']
+  const RANGE_PANELS = [ 'days', 'weeks', 'months', 'quarters', 'years' ]
+  const SINGLE_PANELS = [ 'day' ]
 
   Vue.use(SvgIcon, {
     tagName: 'svgicon'
