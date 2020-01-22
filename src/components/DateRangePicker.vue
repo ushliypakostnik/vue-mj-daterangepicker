@@ -826,7 +826,8 @@
 
       const lastDayOfMonth = endOfMonth(this.current)
       const firstDayOfMonth = startOfMonth(this.current)
-      const nbDaysLastMonth = (+format(firstDayOfMonth, 'd') - 1) % 7
+      let nbDaysLastMonth = (+format(firstDayOfMonth, 'd') - 1) % 7
+      nbDaysLastMonth = nbDaysLastMonth === -1 ? 6 : nbDaysLastMonth
 
       let day = subDays(firstDayOfMonth, nbDaysLastMonth)
 
